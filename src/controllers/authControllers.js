@@ -28,6 +28,11 @@ export async function signUp(req, res) {
 export async function login(req, res) {
 	try {
 		const { email, password } = req.body;
+		const user = await getDatabase().collection("users").findOne({ email });
+		if (!user) {
+			return res.status(401).send("Email or password incorrect");
+		}
+
 		const checkPassword = await bcrypt.compare(password, user.password);
 		if (checkPassword) {
 			const token = uuid();
