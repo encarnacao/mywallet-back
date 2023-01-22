@@ -1,7 +1,6 @@
 import { v4 as uuid } from "uuid";
 import bcrypt from "bcrypt";
 import { getDatabase } from "../database.js";
-import { ObjectId } from "mongodb";
 
 export async function signUp(req, res) {
 	try {
