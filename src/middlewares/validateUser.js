@@ -1,8 +1,8 @@
-import { userSchema } from "../schemas.js";
+import { signUpSchema } from "../schemas.js";
 
-export async function validateUser(req, res, next) {
+export async function validateSignUp(req, res, next) {
 	try {
-		const { error } = userSchema.validate(req.body);
+		const { error } = signUpSchema.validate(req.body);
 		if (error) {
 			const { details } = error;
 			const message = details.map((i) => i.message).join(",");
