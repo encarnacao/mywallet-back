@@ -28,7 +28,11 @@ export async function getEntries(req, res){
             return res.status(401).send("Session expired");
         }
         const entries = await getDatabase().collection("entries").find({userId: session.userId}).toArray();
-        res.status(200).send(entries);
+        const user = await getDatabase().collection("users").findOne({_id: session.userId});
+        delete user.password;
+        delete user.email;
+        const response = {...user, entries};
+        res.status(200).send(response);
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
