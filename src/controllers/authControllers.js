@@ -1,12 +1,18 @@
-import { v4 as uuid } from 'uuid';
-import bcrypt from 'bcrypt';
+import { v4 as uuid } from "uuid";
+import bcrypt from "bcrypt";
 import { getDatabase } from "../database.js";
 import { ObjectId } from "mongodb";
 
-export async function signUp(req, res){
+export async function signUp(req, res) {
 	try {
 		const { name, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+		const findUser = await getDatabase()
+			.collection("users")
+			.findOne({ email });
+		if (findUser) {
+			return res.sendStatus(409);
+		}
+		const hashedPassword = await bcrypt.hash(password, 10);
 		const user = {
 			name,
 			email,
