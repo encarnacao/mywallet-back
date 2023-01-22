@@ -2,6 +2,7 @@ import express from "express";
 import cors from 'cors'
 import { connectDatabase } from "./database.js";
 import users from "./routes/users.js";
+import entries from "./routes/entries.js";
 
 const PORT = 5000;
 
@@ -11,6 +12,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 server.use(users);
+server.use(entries);
 
 
 

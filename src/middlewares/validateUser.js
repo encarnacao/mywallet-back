@@ -1,7 +1,7 @@
 import { signUpSchema, loginSchema } from "../schemas.js";
 
 
-function returnErrors(errors){
+export function returnErrors(errors){
     const { details } = errors;
 	const message = details.map((i) => i.message).join(",");
     return message;
